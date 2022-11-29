@@ -4,14 +4,14 @@
     // import the connection
     require_once $_SERVER['DOCUMENT_ROOT']."/Websites/Library-management-system/"."app/config/dbConnection.php";
 
-    $bookId = $_GET['id'];
+    $complaintId = $_GET['id'];
 
-    $sql = "DELETE FROM books WHERE `id` = $bookId";
+    $sql = "DELETE FROM complaints WHERE `id` = $complaintId";
     $query = mysqli_query($connection, $sql);
 
     if (!$query) {
       http_response_code(404);
-      exit("Delete operation failed, book not found");
+      exit("Delete operation failed, complaint not found");
     }
 
     http_response_code(200);

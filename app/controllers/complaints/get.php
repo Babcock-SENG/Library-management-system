@@ -4,21 +4,21 @@
     // import the connection
     require_once $_SERVER['DOCUMENT_ROOT']."/Websites/Library-management-system/"."app/config/dbConnection.php";
 
-    $bookId = $_GET['id'];
+    $complaintId = $_GET['id'];
 
-    $sql = "SELECT * FROM books WHERE `id` = $bookId";
+    $sql = "SELECT * FROM complaints WHERE `id` = $complaintId";
     $query = mysqli_query($connection, $sql);
     $numOfRows = mysqli_num_rows($query);
 
     if ($numOfRows == 0) {
       http_response_code(404);
-      exit("Book not found");
+      exit("Complaint not found");
     }
 
-    $bookData = mysqli_fetch_assoc($query);
+    $complaintInfo = mysqli_fetch_assoc($query);
 
     http_response_code(200);
-    exit(json_encode($bookData));
+    exit(json_encode($complaintInfo));
   }
 
 ?>
