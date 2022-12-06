@@ -12,13 +12,13 @@
 
     if ($numOfRows == 0) {
       http_response_code(404);
-      exit("The specified student hasn't borrowed a book yet");
+      customExit("The specified student hasn't borrowed a book yet");
     }
 
     $collectionsInfo = mysqli_fetch_all($query);
 
     http_response_code(200);
-    exit(json_encode($collectionsInfo));
+    customExit(json_encode($collectionsInfo));
   }
 
 ?>

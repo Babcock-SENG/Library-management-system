@@ -11,4 +11,9 @@
     die("Database connection failed \n".mysqli_connect_error());
   }
 
+  // sorry mate
+  function customExit($msg) {
+    exit(json_encode(array("msg"=>$msg)));
+  }
+
 ?>

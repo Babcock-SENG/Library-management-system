@@ -11,11 +11,11 @@
 
     if (!$query) {
       http_response_code(404);
-      exit("Delete operation failed, complaint not found");
+      customExit("Delete operation failed, complaint not found");
     }
 
     http_response_code(200);
-    exit("Success");
+    customExit("Success");
   }
 
 ?>

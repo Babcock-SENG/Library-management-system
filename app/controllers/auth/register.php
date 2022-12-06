@@ -18,7 +18,7 @@
     // validate information
     if (strlen($email) == 0 || strlen($password) == 0 || strlen($fullName) == 0 || strlen($department) == 0 || strlen($matricNo) == 0) {
       http_response_code(400);
-      exit("Invalid request");
+      customExit("Invalid request");
     }
 
     // register user
@@ -29,14 +29,14 @@
 
     if (!$query) {
       http_response_code(500);
-      exit("Something went wrong on the server try again later");
+      customExit("Something went wrong on the server try again later");
     }
 
     // set session info
-    setcookie("userID", $email);
+    setcookie("userID", $email, time() + (3600 * 24 * 30), "/");
 
     http_response_code(200);
-    exit("Success");
+    customExit("Success");
   }
 
 ?>

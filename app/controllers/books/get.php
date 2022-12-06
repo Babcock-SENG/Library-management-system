@@ -12,13 +12,13 @@
 
     if ($numOfRows == 0) {
       http_response_code(404);
-      exit("Book not found");
+      customExit("Book not found");
     }
 
     $bookData = mysqli_fetch_assoc($query);
 
     http_response_code(200);
-    exit(json_encode($bookData));
+    customExit(json_encode($bookData));
   }
 
 ?>

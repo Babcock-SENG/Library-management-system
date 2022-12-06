@@ -10,13 +10,13 @@
 
     if ($numOfRows == 0) {
       http_response_code(404);
-      exit("Book not found");
+      customExit("Book not found");
     }
 
     $complaintInfo = mysqli_fetch_all($query);
 
     http_response_code(200);
-    exit(json_encode($complaintInfo));
+    customExit(json_encode($complaintInfo));
   }
 
 ?>

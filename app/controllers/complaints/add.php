@@ -14,7 +14,7 @@
 
     if (strlen($description) == 0 || strlen($studentId) == 0 || strlen($bookId) == 0) {
       http_response_code(400);
-      exit("Incomplete request");
+      customExit("Incomplete request");
     }
     
     $sql = "INSERT INTO complaints (`description`, `studentId`, `bookId`) VALUES ('$description', $studentId, $bookId)";
@@ -22,11 +22,11 @@
 
     if (!$query) {
       http_response_code(500);
-      exit("Something went wrong please try again");
+      customExit("Something went wrong please try again");
     }
 
     http_response_code(200);
-    exit("Success");
+    customExit("Success");
   }
 
 ?>

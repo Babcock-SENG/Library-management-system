@@ -14,6 +14,12 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .hide{
+  display: none !important;
+ }
+ .errorMsg{
+  font-size: 20px;
+ }
 :root {
   --bs-blue: #3011BC;
   --bs-indigo: #0057F2;

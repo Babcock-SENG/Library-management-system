@@ -10,13 +10,13 @@
 
     if ($numOfRows == 0) {
       http_response_code(404);
-      exit("No staffs");
+      customExit("No staffs");
     }
 
     $studentInfo = mysqli_fetch_all($query);
 
     http_response_code(200);
-    exit(json_encode($studentInfo));
+    customExit(json_encode($studentInfo));
   }
 
 ?>

@@ -15,7 +15,7 @@
     // validate information
     if (strlen($email) == 0 || strlen($password) == 0) {
       http_response_code(400);
-      exit("Invalid credentials");
+      customExit("Invalid credentials");
     }
 
     // find user record in database
@@ -26,7 +26,7 @@
 
     if ($numOfRows == 0) {
       http_response_code(400);
-      exit("No such user exist, please register");
+      customExit("No such user exist, please register");
     }
 
     $storedPassword = $data['password'];
@@ -34,14 +34,14 @@
 
     if (!$passwordIsValid) {
       http_response_code(400);
-      exit("Invalid credentials");
+      customExit("Invalid credentials");
     }
 
     // set session info
-    setcookie("userID", $email);
+    setcookie("userID", $email, time() + (3600 * 24 * 30), "/");
 
     http_response_code(200);
-    exit("Success");
+    customExit("Success");
   }
 
 ?>

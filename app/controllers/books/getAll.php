@@ -10,13 +10,13 @@
 
     if ($numOfRows == 0) {
       http_response_code(404);
-      exit("There are no books");
+      customExit("There are no books");
     }
 
     $bookData = mysqli_fetch_all($query);
 
     http_response_code(200);
-    exit(json_encode($bookData));
+    customExit(json_encode($bookData));
   }
 
 ?>

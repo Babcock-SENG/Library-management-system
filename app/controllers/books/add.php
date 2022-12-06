@@ -16,7 +16,7 @@
 
     if (strlen($bookTitle) == 0 || strlen($bookImage) == 0 || strlen($author) == 0 || strlen($price) == 0 || strlen($bookTitle) == 0 || strlen($category) == 0) {
       http_response_code(400);
-      exit("Incomplete request");
+      customExit("Incomplete request");
     }
     
     $sql = "INSERT INTO books (`title`, `imageUrl`, `author`, `price`, `category`) VALUES ('$bookTitle', '$bookImage', '$author', $price, '$category')";
@@ -24,11 +24,11 @@
 
     if (!$query) {
       http_response_code(500);
-      exit("Something went wrong please try again");
+      customExit("Something went wrong please try again");
     }
 
     http_response_code(200);
-    exit("Success");
+    customExit("Success");
   }
 
 ?>

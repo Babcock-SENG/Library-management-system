@@ -10,13 +10,13 @@
 
     if ($numOfRows == 0) {
       http_response_code(404);
-      exit("There have not been any borrowed books");
+      customExit("There have not been any borrowed books");
     }
 
     $collectionsInfo = mysqli_fetch_all($query);
 
     http_response_code(200);
-    exit(json_encode($collectionsInfo));
+    customExit(json_encode($collectionsInfo));
   }
 
 ?>

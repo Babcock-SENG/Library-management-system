@@ -29,8 +29,34 @@
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link href="assets/css/theme.css" rel="stylesheet" />
+    <style>
+        .login-form {
+            width: 600px;
+            margin: 50px auto;
+              font-size: 15px;
+        }
+        .login-form form {
+            margin-bottom: 15px;
+            background: black;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+        .login-form h2 {
+            margin: 0 0 15px;
+            
+        }
+        .form-control, .btn {
+            min-height: 38px;
+            border-radius: 2px;
+        }
+        .btn {        
+            font-size: 15px;
+            font-weight: bold;
+        }
+        </style>
 
   </head>
+
 
 
   <body>
@@ -39,76 +65,88 @@
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand d-inline-flex" href="index.html"><span class="text-light fs-2 fw-bold ms-2">ELEARN</span></a>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand d-inline-flex" href="./../../index.php"><span class="text-light fs-2 fw-bold ms-2">ELEARN</span></a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item px-2"><a class="nav-link fw-bold active" aria-current="page" href="#collections">BOOKS</a></li>
-              <li class="nav-item px-2"><a class="nav-link fw-bold" href="#store">WHO WE ARE</a></li>
-              <li class="nav-item px-2"><a class="nav-link fw-bold" href="#header">SIGN IN</a></li>
-              <li class="nav-item px-2"><a class="nav-link fw-bold" href="#contact">CONTACT</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold active" aria-current="page" href="./../../index.php#collections">BOOKS</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold" href="./../../index.php#store">WHO WE ARE</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold" href="./sign.php">SIGN IN</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold" href="./../../index.php#contact">CONTACT</a></li>
               
             </ul>
             <form class="d-flex"><a class="text-primary" href="#!">
                 <svg class="feather feather-phone-call" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                 </svg></a>
-              <div class="ms-4 text-light fw-bold">+234 907 6910 119 </div>
+              <div class="ms-4 text-light fw-bold">
+                <?php
+                  if (isset($_COOKIE['userID'])) {
+                    echo $_COOKIE['userID'];
+                  }
+                ?>
+              </div>
             </form>
           </div>
         </div>
       </nav>
-      
-      <p style="margin-top: 5%;"></p>
-      <p></p>
 
-      <div class="row">
-        <div class="col-md-2">
 
-        </div>
-        <div class="col-md-8">
-            <table class="table table-dark">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </table>
-        
-        </div>
-        <div class="col-md-2">
 
+      <div class="container" style="margin-top: 10%">
+        <div class="row">
+          <div class="col-md-1">
+   
+          </div>
+            
+          <div class="col-md-10">
+            <div class="login-form">
+                <form id="loginForm" onsubmit="return false">
+                    <h2 class="errorMsg text-center hide" id="apiRes"></h2>       
+                    <h2 class="text-center">Log in</h2>       
+                    <div class="form-group" >
+                        <input id="email" type="text" class="form-control" placeholder="email" required="required">
+                    </div>
+                    <p></p>
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control" placeholder="Password" required="required">
+                    </div>
+                    <p></p>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                    </div>
+                    <p></p>
+                    <div class="clearfix">
+                        <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
+                        <a href="#" class="float-right" style="color: white;">Forgot Password?</a>
+                    </div>        
+                </form>
+                <p class="text-center"><a href="./register.php" style="color: white;">Create an Account</a></p>
+            </div>
+          
         </div>
+        <div class="col-md-1">
+   
+        </div>
+      </div>
 
       </div>
+         
       
 
+      
+
+
+      <div class="container" style="margin-top: 10%">
+
+       
+
+
 <p></p>
-<p></p>
+
+
+
 
 
 
@@ -209,6 +247,8 @@
       feather.replace();
     </script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/custom.js"></script>
+
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&amp;display=swap" rel="stylesheet">
   </body>
