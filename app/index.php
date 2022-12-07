@@ -61,6 +61,13 @@ require_once "./config/dbConnection.php";
               if (isset($_COOKIE['userID']) && isset($_COOKIE['type'])) {
                 echo "Hello, ".$_COOKIE['userID'];
               }
+            ?>
+            <?php
+              if (isset($_COOKIE['userID'])) {
+              ?>
+                <a href="http://localhost/websites/Library-management-system/app/controllers/auth/logout.php">Logout</a>
+              <?php
+              }
               ?>
             </div>
             </a>
