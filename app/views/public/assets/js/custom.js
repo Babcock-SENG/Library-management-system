@@ -16,6 +16,39 @@ function showError(element, msg) {
   }, 3500)
 }
 
+async function staffLogin() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  const credentials = { email, password };
+
+  fetch(`${baseUrl}/auth/adminLogin.php`, { 
+    ...postOptions, 
+    body: JSON.stringify(credentials)
+  })
+  .then(async res => { 
+    return {
+      status: res.status,
+      ...(await res.json())
+    }
+  })
+  .then(res => {
+    if (res.status !== 200) {
+      return showError("apiRes", res.msg);
+    }
+
+    location.assign("http://localhost/websites/Library-management-system/app/index.php")
+  })
+  .catch(err => {
+    console.log(err);
+  })
+    
+}
+
+if (document.getElementById('loginStaffLogin')) {
+  document.getElementById('loginStaffLogin').addEventListener('submit', staffLogin);
+}
+
 async function login() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -47,6 +80,39 @@ async function login() {
 
 if (document.getElementById('loginForm')) {
   document.getElementById('loginForm').addEventListener('submit', login);
+}
+
+async function registerStaff() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  const credentials = { email, password };
+
+  fetch(`${baseUrl}/staffs/add.php`, { 
+    ...postOptions, 
+    body: JSON.stringify(credentials)
+  })
+  .then(async res => { 
+    return {
+      status: res.status,
+      ...(await res.json())
+    }
+  })
+  .then(res => {
+    if (res.status !== 200) {
+      return showError("apiRes", res.msg);
+    }
+
+    location.assign("http://localhost/websites/Library-management-system/app/index.php")
+  })
+  .catch(err => {
+    console.log(err);
+  })
+    
+}
+
+if (document.getElementById('regStaffForm')) {
+  document.getElementById('regStaffForm').addEventListener('submit', registerStaff);
 }
 
 async function register() {
