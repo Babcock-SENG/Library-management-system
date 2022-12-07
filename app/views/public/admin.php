@@ -56,8 +56,8 @@
             </ul>
             <form class="d-flex"><a class="text-primary" href="<?php echo "./admin.php" ?>">
             <div class="ms-4 text-light fw-bold">
-              <?php
-              if (isset($_COOKIE['userID'])) {
+            <?php
+              if (isset($_COOKIE['userID']) && isset($_COOKIE['type'])) {
                 echo "Hello, ".$_COOKIE['userID'];
               }
               ?>

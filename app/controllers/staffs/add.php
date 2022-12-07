@@ -11,7 +11,7 @@
     // get the user information from the request payload
     $email = $postData['email'];
     $fullName = $postData['fullName'];
-    $password = $postData['password']
+    $password = $postData['password'];
 
     // validate information
     if (strlen($email) == 0 || strlen($password) == 0 || strlen($fullName) == 0) {

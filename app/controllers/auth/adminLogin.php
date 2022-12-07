@@ -39,7 +39,7 @@
 
     // set session info
     setcookie("userID", $email, time() + (3600 * 24 * 30), "/");
-    setcookie("admin", "admin", time() + (3600 * 24 * 30), "/");
+    setcookie("type", "admin", time() + (3600 * 24 * 30), "/");
 
     http_response_code(200);
     customExit("Success");

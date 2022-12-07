@@ -45,8 +45,8 @@ async function staffLogin() {
     
 }
 
-if (document.getElementById('loginStaffLogin')) {
-  document.getElementById('loginStaffLogin').addEventListener('submit', staffLogin);
+if (document.getElementById('loginStaffForm')) {
+  document.getElementById('loginStaffForm').addEventListener('submit', staffLogin);
 }
 
 async function login() {
@@ -85,8 +85,9 @@ if (document.getElementById('loginForm')) {
 async function registerStaff() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
+  const fullName = document.getElementById('fullName').value;
 
-  const credentials = { email, password };
+  const credentials = { email, password, fullName };
 
   fetch(`${baseUrl}/staffs/add.php`, { 
     ...postOptions, 

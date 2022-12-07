@@ -78,8 +78,8 @@
             </ul>
             <form class="d-flex"><a class="text-primary" href="<?php echo "./admin.php" ?>">
             <div class="ms-4 text-light fw-bold">
-              <?php
-              if (isset($_COOKIE['userID'])) {
+            <?php
+              if (isset($_COOKIE['userID']) && isset($_COOKIE['type'])) {
                 echo "Hello, ".$_COOKIE['userID'];
               }
               ?>
@@ -102,7 +102,7 @@
             <div class="login-form">
                 <form id="regStaffForm" onsubmit="return false">
                     <h2 class="errorMsg text-center hide" id="apiRes"></h2>       
-                    <h2 class="text-center">Register an Account</h2>       
+                    <h2 class="text-center">Register a Staff Account</h2>       
                     <div class="form-group" >
                         <input id="fullName" type="text" class="form-control" placeholder="full name" required="required">
                     </div>
