@@ -140,10 +140,10 @@ require_once "./config/dbConnection.php";
           <div class="col-12">
             <nav>
               <div class="nav nav-tabs watch-tabs mb-4 justify-content-end" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-latest-tab" data-bs-toggle="tab" data-bs-target="#nav-latest" type="button" role="tab" aria-controls="nav-latest" aria-selected="true">LATEST </button>
+                <button class="nav-link active" id="nav-latest-tab" data-bs-toggle="tab" data-bs-target="#nav-latest" type="button" role="tab" aria-controls="nav-latest" aria-selected="true">Latest </button>
 
                 <!-- will contain the student's borrowed books -->
-                <button class="nav-link" id="nav-popular-tab" data-bs-toggle="tab" data-bs-target="#nav-popular" type="button" role="tab" aria-controls="nav-popular" aria-selected="false">POPULAR</button>
+                <button class="nav-link" id="nav-popular-tab" data-bs-toggle="tab" data-bs-target="#nav-popular" type="button" role="tab" aria-controls="nav-popular" aria-selected="false">Already Borrowed</button>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -206,122 +206,66 @@ require_once "./config/dbConnection.php";
               <!-- will contain the borrowed books  -->
               <div class="tab-pane fade" id="nav-popular" role="tabpanel" aria-labelledby="nav-popular-tab">
                 <div class="carousel slide" id="carouselPopular" data-bs-ride="carousel">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                      <div class="row h-100 align-items-center">
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-2.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$650.00</h6>
-                              <h4 class="text-light">ADRIATICA ADR</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-3.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$126.00</h6>
-                              <h4 class="text-light">SEIKO SNZGO7K1</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-1.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$250.00</h6>
-                              <h4 class="text-light">ROAMER RM 220837</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000">
-                      <div class="row h-100 align-items-center">
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-2.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$650.00</h6>
-                              <h4 class="text-light">ADRIATICA ADR</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-3.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$126.00</h6>
-                              <h4 class="text-light">SEIKO SNZGO7K1</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-1.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$250.00</h6>
-                              <h4 class="text-light">ROAMER RM 220837</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
+                <div class="carousel-inner">
+                    <?php
+                    $i = 0;
+
+                    $userID = $_COOKIE['userID'];
+
+                    $sql = "SELECT * FROM collections WHERE `studentId` = '$userID'";
+                    $query = mysqli_query($connection, $sql);
+                    $numOfRows = mysqli_num_rows($query);
+
+                    while ($i < ($numOfRows / 3)) {
+                    ?>
+                      <div class="carousel-item <?php if ($i == 0) { echo 'active'; } ?>" data-bs-interval="<?php if ($i == 0) { echo '10000'; } else { echo '5000'; } ?>">
+                        <div class="row h-100 align-items-center">
+                          <?php
+
+                           $bookId = 0;
+
+                            while ($data = mysqli_fetch_assoc($query)) {
+                              $bookId = $data['bookId'];
+
+                              $sql2 = "SELECT * FROM books WHERE id = '$bookId'";
+                          $query = mysqli_query($connection, $sql2);
+                              $data2 = mysqli_fetch_assoc($query)
+
+                          ?>
+
+                            <h4 id="apiResCollection"></h4>
+                            <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
+                              <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="<?php echo $data2['imageUrl'] ?>" alt="..." />
+                                <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
+                                  <h6 class="text-primary">$<?php echo $data2["price"] ?></h6>
+                                  <h4 class="text-light"><?php echo $data2['title'] ?></h4>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          <?php
+
+                          $bookId++;
+
+                          if ($bookId % 3 == 0) {
+                            break;
+                          }
+
+                          }
+
+                          ?>
                         </div>
                       </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="3000">
-                      <div class="row h-100 align-items-center">
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-2.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$650.00</h6>
-                              <h4 class="text-light">ADRIATICA ADR</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-3.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$126.00</h6>
-                              <h4 class="text-light">SEIKO SNZGO7K1</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-1.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$250.00</h6>
-                              <h4 class="text-light">ROAMER RM 220837</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="row h-100 align-items-center">
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-2.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$650.00</h6>
-                              <h4 class="text-light">ADRIATICA ADR</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-3.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$126.00</h6>
-                              <h4 class="text-light">SEIKO SNZGO7K1</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
-                          <div class="card bg-black text-white p-6 pb-8"><img class="card-img" src="assets/img/gallery/watch-1.png" alt="..." />
-                            <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
-                              <h6 class="text-primary">$250.00</h6>
-                              <h4 class="text-light">ROAMER RM 220837</h4>
-                            </div><a class="stretched-link" href="#"></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
+                    <?php
+                      $i++;
+                    }
+                    ?>
+
                     <div class="row">
-                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselPopular" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#carouselPopular" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next </span></button>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselLatest" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselLatest" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next </span></button>
                     </div>
                   </div>
                 </div>
@@ -441,6 +385,8 @@ require_once "./config/dbConnection.php";
     feather.replace();
   </script>
   <script src="assets/js/theme.js"></script>
+  <script src="assets/js/custom.js"></script>
+
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&amp;display=swap" rel="stylesheet">
 </body>

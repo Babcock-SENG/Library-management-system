@@ -104,6 +104,7 @@ require_once "./../../config/dbConnection.php";
                 if ($numOfRows > 0) {
             ?>
                   <button type="button" disabled class="btn btn-warning">Already borrowed</button>
+                  <a type="submit" class="btn btn-primary btn-block" onclick="returnBook('<?php echo $bookId ?>', '<?php echo $userID ?>')">Return book</a>
             <?php
                 } else {
             ?>
@@ -114,7 +115,7 @@ require_once "./../../config/dbConnection.php";
                 }
               } else {
             ?>
-                  <a href="./sign.php"><button type="button" class="btn btn-warning">Register</button></a>
+                  <a href="./register.php"><button type="button" class="btn btn-warning">Register</button></a>
             <?php
               }
             ?>

@@ -273,3 +273,25 @@ function deleteBook(bookId, element) {
     console.log(err);
   })
 }
+
+function returnBook(bookId, userId) {
+  fetch(`${baseUrl}/collections/delete.php?bookId=${bookId}&userId=${userId}`, { 
+    ...deleteOptions
+  })
+  .then(async res => { 
+    return {
+      status: res.status,
+      ...(await res.json())
+    }
+  })
+  .then(res => {
+    if (res.status !== 200) {
+      return showError("apiResCollection", res.msg);
+    }
+
+    location.reload();
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
