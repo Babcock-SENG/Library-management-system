@@ -6,6 +6,10 @@ const postOptions = {
   }
 }
 
+const deleteOptions = {
+  method: 'DELETE'
+}
+
 function showError(element, msg) {
   document.getElementById(element).classList.remove("hide");
   document.getElementById(element).innerHTML = msg;
@@ -15,6 +19,46 @@ function showError(element, msg) {
     document.getElementById(element).innerHTML = "";
   }, 3500)
 }
+
+async function addBook() {
+  const title = document.getElementById('title').value;
+  const author = document.getElementById('author').value;
+  const price = document.getElementById('price').value;
+  const imageUrl = document.getElementById('imageUrl').value;
+  const category = document.getElementById('category').value;
+  const description = document.getElementById('description').value;
+
+
+  const credentials = { title, author, price, imageUrl, category, description };
+
+  fetch(`${baseUrl}/books/add.php`, { 
+    ...postOptions, 
+    body: JSON.stringify(credentials)
+  })
+  .then(async res => { 
+    return {
+      status: res.status,
+      ...(await res.json())
+    }
+  })
+  .then(res => {
+    if (res.status !== 200) {
+      return showError("apiRes", res.msg);
+    }
+
+    location.assign("http://localhost/websites/Library-management-system/app/views/public/admin.php")
+  })
+  .catch(err => {
+    console.log(err);
+  })
+    
+}
+
+if (document.getElementById('addBookForm')) {
+  document.getElementById('addBookForm').addEventListener('submit', addBook);
+}
+
+
 
 async function staffLogin() {
   const email = document.getElementById('email').value;
@@ -187,9 +231,30 @@ function borrowBook(bookId, userId, fine) {
 
 
 function deleteStaff(staffId, element) {
-  fetch(`${baseUrl}/collections/delete.php?id${staffId}`, { 
-    ...deleteOptions, 
-    body: JSON.stringify(data)
+  fetch(`${baseUrl}/staffs/delete.php?id=${staffId}`, { 
+    ...deleteOptions
+  })
+  .then(async res => { 
+    return {
+      status: res.status,
+      ...(await res.json())
+    }
+  })
+  .then(res => {
+    if (res.status !== 200) {
+      return showError(element, res.msg);
+    }
+
+    location.reload();
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+function deleteBook(bookId, element) {
+  fetch(`${baseUrl}/books/delete.php?id=${bookId}`, { 
+    ...deleteOptions
   })
   .then(async res => { 
     return {

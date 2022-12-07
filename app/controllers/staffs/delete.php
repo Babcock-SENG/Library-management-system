@@ -4,7 +4,7 @@
     // import the connection
     require_once $_SERVER['DOCUMENT_ROOT']."/Websites/Library-management-system/"."app/config/dbConnection.php";
 
-    $staffId = $_GET['staffId'];
+    $staffId = $_GET['id'];
 
     $sql = "DELETE FROM staffs WHERE `id` = $staffId";
     $query = mysqli_query($connection, $sql);

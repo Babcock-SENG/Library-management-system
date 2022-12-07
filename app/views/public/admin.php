@@ -73,6 +73,8 @@
 
       <div class="row">
         <h4 style="text-align: center;">Books information</h4>
+        <h5 id="apiResBooks"></h5>
+
 
         <div class="col-md-1">
 
@@ -88,6 +90,7 @@
                     <th scope="col">Image Url</th>
                     <th scope="col">Category</th>
                     <th scope="col">Description</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -108,6 +111,9 @@
                     <td><?php echo substr($data['imageUrl'], strlen($data['imageUrl']) - 50) ?></td>
                     <td><?php echo $data['category'] ?></td>
                     <td><?php echo substr($data['description'], strlen($data['description']) - 50) ?></td>
+                    <td><span onclick="deleteBook(<?php echo $data['id'] ?>, 'apiResBooks')">
+                      <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path style="fill: white;" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                    </span></td>
                   </tr>
 
                   <?php
@@ -118,6 +124,8 @@
                   ?>
                 </tbody>
               </table>
+
+              <a class="btn btn-sm btn-outline-primary me-3" href="./addBooks.php">Add books</a>
         
         </div>
         <div class="col-md-1">
@@ -138,7 +146,7 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Book Name</th>
-                    <th scope="col">Staff Name</th>
+                    <th scope="col">Borrower's name</th>
                     <th scope="col">Collection Date</th>
                     <th scope="col">Fine</th>
                     <th scope="col">Return Date</th>
@@ -148,7 +156,7 @@
                 <tbody>
                   <?php
 
-                    $sql = "SELECT collections.*, books.title As bookTitle, staffs.fullName As staffName FROM collections INNER JOIN books ON books.id = collections.bookId INNER JOIN staffs ON staffs.id = collections.staffId";
+                    $sql = "SELECT collections.*, books.title As bookTitle FROM collections INNER JOIN books ON books.id = collections.bookId";
                     $query = mysqli_query($connection, $sql);
 
                     $rowNo = 1;
@@ -158,7 +166,7 @@
                   <tr>
                     <td><?php echo $rowNo ?></td>
                     <td><?php echo $data['bookTitle'] ?></td>
-                    <td><?php echo $data['staffName'] ?></td>
+                    <td><?php echo $data['studentId'] ?></td>
                     <td><?php echo $data['collectionDate'] ?></td>
                     <td><?php echo $data['fine'] ?></td>
                     <td><?php echo $data['returnDate'] ?></td>
@@ -279,6 +287,8 @@
                 </tbody>
               </table>
         
+              <a class="btn btn-sm btn-outline-primary me-3" href="./registerStaff.php">Add a Libarian</a>
+
         
         </div>
         <div class="col-md-1">
@@ -323,6 +333,8 @@
       feather.replace();
     </script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/custom.js"></script>
+
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&amp;display=swap" rel="stylesheet">
   </body>
