@@ -49,7 +49,7 @@ if (document.getElementById('loginForm')) {
   document.getElementById('loginForm').addEventListener('submit', login);
 }
 
-async function login() {
+async function register() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const fullName = document.getElementById('fullName').value;
@@ -83,5 +83,61 @@ async function login() {
 }
 
 if (document.getElementById('regForm')) {
-  document.getElementById('regForm').addEventListener('submit', login);
+  document.getElementById('regForm').addEventListener('submit', register);
+}
+
+
+function borrowBook(bookId, userId, fine) {
+  const data = {
+    bookId,
+    studentId: userId,
+    fine,
+    returnDate: new Date(Date.now() + 5000).getTime(),
+    dueDate: new Date(Date.now() + 10000).getTime()
+  }
+
+  fetch(`${baseUrl}/collections/add.php`, { 
+    ...postOptions, 
+    body: JSON.stringify(data)
+  })
+  .then(async res => { 
+    return {
+      status: res.status,
+      ...(await res.json())
+    }
+  })
+  .then(res => {
+    if (res.status !== 200) {
+      return showError("apiRes", res.msg);
+    }
+
+    location.reload();
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+
+function deleteStaff(staffId, element) {
+  fetch(`${baseUrl}/collections/delete.php?id${staffId}`, { 
+    ...deleteOptions, 
+    body: JSON.stringify(data)
+  })
+  .then(async res => { 
+    return {
+      status: res.status,
+      ...(await res.json())
+    }
+  })
+  .then(res => {
+    if (res.status !== 200) {
+      return showError(element, res.msg);
+    }
+
+    location.reload();
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }

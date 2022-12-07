@@ -54,7 +54,7 @@ require_once "./../../config/dbConnection.php";
             <li class="nav-item px-2"><a class="nav-link fw-bold" href="./../../index.php#contact">CONTACT</a></li>
 
           </ul>
-          <form class="d-flex"><a class="text-primary" href="<?php echo "./admin.php" ?>">
+          <form class="d-flex"><a class="text-primary" href="<?php echo './admin.php'?>">
             <div class="ms-4 text-light fw-bold">
               <?php
               if (isset($_COOKIE['userID'])) {
@@ -62,7 +62,7 @@ require_once "./../../config/dbConnection.php";
               }
               ?>
             </div>
-          </form>
+            </a></form>
         </div>
       </div>
     </nav>
@@ -86,7 +86,33 @@ require_once "./../../config/dbConnection.php";
           <h5>Price: <?php echo $data['price'] ?></h5>
 
           <p>
-            <button type="button" class="btn btn-warning">Order Book Now</button>
+            <?php
+
+              if (isset($_COOKIE['userID'])) {
+                $userID = $_COOKIE['userID'];
+
+                $sql = "SELECT * FROM collections WHERE `bookId` = $bookId AND `studentId` = '$userID'";
+                $query = mysqli_query($connection, $sql); 
+                $numOfRows = mysqli_num_rows($query);
+
+                if ($numOfRows > 0) {
+            ?>
+                  <button type="button" disabled class="btn btn-warning">Already borrowed</button>
+            <?php
+                } else {
+            ?>
+                  <button type="button" class="btn btn-warning" 
+                    onclick="borrowBook('<?php echo $bookId ?>', '<?php echo $userID ?>', '<?php echo ($data['price'] * .20) ?>')">Order Book Now</button>
+                  <h4 id="apiRes"></h4>
+            <?php
+                }
+              } else {
+            ?>
+                  <a href="./sign.php"><button type="button" class="btn btn-warning">Register</button></a>
+            <?php
+              }
+            ?>
+            
           </p>
 
         </div>
@@ -203,6 +229,8 @@ require_once "./../../config/dbConnection.php";
     feather.replace();
   </script>
   <script src="assets/js/theme.js"></script>
+  <script src="assets/js/custom.js"></script>
+
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&amp;display=swap" rel="stylesheet">
 </body>
