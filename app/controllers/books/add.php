@@ -13,13 +13,14 @@
     $author = $postData['author'];
     $price = $postData['price'];
     $category = $postData['category'];
+    $description = $postData['description'];
 
-    if (strlen($bookTitle) == 0 || strlen($bookImage) == 0 || strlen($author) == 0 || strlen($price) == 0 || strlen($bookTitle) == 0 || strlen($category) == 0) {
+    if (strlen($bookTitle) == 0 || strlen($bookImage) == 0 || strlen($author) == 0 || strlen($price) == 0 || strlen($bookTitle) == 0 || strlen($category) == 0 || strlen($description) == 0) {
       http_response_code(400);
       customExit("Incomplete request");
     }
     
-    $sql = "INSERT INTO books (`title`, `imageUrl`, `author`, `price`, `category`) VALUES ('$bookTitle', '$bookImage', '$author', $price, '$category')";
+    $sql = "INSERT INTO books (`title`, `imageUrl`, `author`, `price`, `category`, `description`) VALUES ('$bookTitle', '$bookImage', '$author', $price, '$category', '$description')";
     $query = mysqli_query($connection, $sql);
 
     if (!$query) {

@@ -10,7 +10,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Sign In</title>
+    <title>Register</title>
 
 
     <!-- ===============================================-->
@@ -99,19 +99,31 @@
             
           <div class="col-md-10">
             <div class="login-form">
-                <form id="loginForm" onsubmit="return false">
+                <form id="regForm" onsubmit="return false">
                     <h2 class="errorMsg text-center hide" id="apiRes"></h2>       
-                    <h2 class="text-center">Log in</h2>       
+                    <h2 class="text-center">Register an Account</h2>       
                     <div class="form-group" >
-                        <input id="email" type="text" class="form-control" placeholder="email" required="required">
+                        <input id="fullName" type="text" class="form-control" placeholder="full name" required="required">
+                    </div>
+                    <p></p>
+                    <div class="form-group" >
+                        <input id="email" type="email" class="form-control" placeholder="email" required="required">
+                    </div>
+                    <p></p>
+                    <div class="form-group" >
+                        <input id="department" type="text" class="form-control" placeholder="department" required="required">
                     </div>
                     <p></p>
                     <div class="form-group">
-                        <input id="password" type="password" class="form-control" placeholder="Password" required="required">
+                        <input id="matricNo" type="text" class="form-control" placeholder="matric number" required="required">
+                    </div>
+                    <p></p>
+                    <div class="form-group" >
+                        <input id="password" type="password" class="form-control" placeholder="password" required="required">
                     </div>
                     <p></p>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
                     </div>
                     <p></p>
                     <div class="clearfix">

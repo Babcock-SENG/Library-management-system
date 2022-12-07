@@ -2,6 +2,10 @@
 <html lang="en-US" dir="ltr">
 
   <head>
+
+  <?php
+  require_once "./../../config/dbConnection.php";
+  ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +14,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>watch | Landing, Ecommerce &amp; Business Templatee</title>
+    <title>Admin</title>
 
 
     <!-- ===============================================-->
@@ -50,18 +54,15 @@
               <li class="nav-item px-2"><a class="nav-link fw-bold" href="./../../index.php#contact">CONTACT</a></li>
               
             </ul>
-            <form class="d-flex"><a class="text-primary" href="#!">
-                <svg class="feather feather-phone-call" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg></a>
-                <div class="ms-4 text-light fw-bold">
-                  <?php
-                    if (isset($_COOKIE['userID'])) {
-                      echo $_COOKIE['userID'];
-                    }
-                  ?>
-              </div>
-            </form>
+            <form class="d-flex"><a class="text-primary" href="<?php echo "./admin.php" ?>">
+            <div class="ms-4 text-light fw-bold">
+              <?php
+              if (isset($_COOKIE['userID'])) {
+                echo "Hello, ".$_COOKIE['userID'];
+              }
+              ?>
+            </div>
+          </form>
           </div>
         </div>
       </nav>
@@ -70,129 +71,229 @@
       <p></p>
 
       <div class="row">
-        <div class="col-md-2">
+        <h4 style="text-align: center;">Books information</h4>
+
+        <div class="col-md-1">
 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
             <table class="table table-dark">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Image Url</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <?php
+
+                    $sql = "SELECT * FROM books";
+                    $query = mysqli_query($connection, $sql);
+
+                    $rowNo = 1;
+                    while($data = mysqli_fetch_assoc($query)) {
+                  ?>
+
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td><?php echo $rowNo ?></td>
+                    <td><?php echo $data['title'] ?></td>
+                    <td><?php echo $data['author'] ?></td>
+                    <td><?php echo $data['price'] ?></td>
+                    <td><?php echo substr($data['imageUrl'], strlen($data['imageUrl']) - 50) ?></td>
+                    <td><?php echo $data['category'] ?></td>
+                    <td><?php echo substr($data['description'], strlen($data['description']) - 50) ?></td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+
+                  <?php
+
+                      $rowNo++;
+                    }
+
+                  ?>
                 </tbody>
               </table>
         
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <h4 style="text-align: center;">Borrowing information</h4>
+
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-10">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Staff Name</th>
+                    <th scope="col">Collection Date</th>
+                    <th scope="col">Fine</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Due Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+
+                    $sql = "SELECT * FROM collections";
+                    $query = mysqli_query($connection, $sql);
+
+                    $rowNo = 1;
+                    while($data = mysqli_fetch_assoc($query)) {
+                  ?>
+
+                  <tr>
+                    <td><?php echo $rowNo ?></td>
+                    <td><?php echo $data['bookTitle'] ?></td>
+                    <td><?php echo $data['staffName'] ?></td>
+                    <td><?php echo $data['collectionDate'] ?></td>
+                    <td><?php echo $data['fine'] ?></td>
+                    <td><?php echo $data['returnDate'] ?></td>
+                    <td><?php echo $data['dueDate'] ?></td>
+                  </tr>
+
+                  <?php
+
+                      $rowNo++;
+                    }
+
+                  ?>
+                </tbody>
+              </table>
+        
+        </div>
+        <div class="col-md-1">
 
         </div>
 
       </div>
       
 
-<p></p>
-<p></p>
 
+      <div class="row">
+        <h4 style="text-align: center;">Users information</h4>
 
+        <div class="col-md-1">
 
-
-
-
-
-
-
-
-
-
-
-
-      <!-- =Foooter-->
-      <!-- <section> begin ============================-->
-      <section class="py-0 pt-7" id="contact">
-
-        <div class="container">
-          <div class="row">
-            <div class="col-6 col-sm-4 col-xl-3 mb-3">
-              <h4 class="lh-lg fw-bold text-light">ELibrary</h4>
-            </div>
-            <div class="col-6 col-sm-4 col-xl-3 mb-3">
-              <h5 class="lh-lg fw-bold text-light">MENU</h5>
-              <ul class="list-unstyled mb-md-4 mb-lg-0">
-                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Books</a></li>
-                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Who we are</a></li>
-                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Contact</a></li>
-                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Sign in</a></li>
-              
-              </ul>
-            </div>
-            <div class="col-6 col-sm-4 col-xl-3 mb-3">
-              <h5 class="mb-5"></h5>
-              <ul class="list-unstyled mb-md-4 mb-lg-0">
-                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Contact Us</a></li>
-                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">my account</a></li>
-              </ul>
-            </div>
-            <div class="col-12 col-xl-3">
-              <h5 class="lh-lg fw-bold text-light text-uppercase">Signup For our Latest News</h5>
-              <div class="row input-group-icon mb-5">
-                <div class="col-12">
-                  <form class="row row-cols-lg-auto g-0 align-items-center">
-                    <div class="col-8 col-lg-9">
-                      <label class="visually-hidden" for="colFormLabel">Username</label>
-                      <div class="input-group">
-                        <input class="rounded-end-0 form-control" id="colFormLabel" type="email" placeholder="email address" />
-                      </div>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                      <button class="btn btn-primary rounded-start-0" type="submit">Submit</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="border-bottom border-700"></div>
-          <div class="row flex-center my-3">
-            <div class="col-md-6 order-1 order-md-0">
-              <p class="my-2 text-800 text-center text-md-start"> Made with&nbsp;
-                <svg class="bi bi-suit-heart-fill" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#EB6453" viewBox="0 0 16 16">
-                  <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"></path>
-                </svg>&nbsp;by&nbsp;<a class="text-500" href="https://themewagon.com/" target="_blank">Group 6 </a>
-              </p>
-            </div>
-            <div class="col-md-6">
-              <div class="text-center text-md-end"><a href="#!"><span class="me-4" data-feather="facebook"></span></a><a href="#!"> <span class="me-4" data-feather="instagram"></span></a><a href="#!"> <span class="me-4" data-feather="youtube"></span></a><a href="#!"> <span class="me-4" data-feather="twitter"></span></a></div>
-            </div>
-          </div>
         </div>
-        <!-- end of .container-->
+        <div class="col-md-10">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Matric No</th>
+                    <th scope="col">Department</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
 
-      </section>
-      <!-- <section> close ============================-->
-      <!-- ============================================-->
+                    $sql = "SELECT * FROM students";
+                    $query = mysqli_query($connection, $sql);
+
+                    $rowNo = 1;
+                    while($data = mysqli_fetch_assoc($query)) {
+                  ?>
+
+                  <tr>
+                    <td><?php echo $rowNo ?></td>
+                    <td><?php echo $data['fullName'] ?></td>
+                    <td><?php echo $data['email'] ?></td>
+                    <td><?php echo $data['matricNo'] ?></td>
+                    <td><?php echo $data['department'] ?></td>
+                  </tr>
+
+                  <?php
+
+                      $rowNo++;
+                    }
+
+                  ?>
+                </tbody>
+              </table>
+        
+        </div>
+        <div class="col-md-1">
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <h4 style="text-align: center;">Libarians Information</h4>
+
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-10">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+
+                    $sql = "SELECT * FROM staffs";
+                    $query = mysqli_query($connection, $sql);
+
+                    $rowNo = 1;
+                    while($data = mysqli_fetch_assoc($query)) {
+                  ?>
+
+                  <tr>
+                    <td><?php echo $rowNo ?></td>
+                    <td><?php echo $data['fullName'] ?></td>
+                    <td><?php echo $data['email'] ?></td>
+                  </tr>
+
+                  <?php
+
+                      $rowNo++;
+                    }
+
+                  ?>
+                </tbody>
+              </table>
+        
+        </div>
+        <div class="col-md-1">
+
+        </div>
+
+      </div>
+
+<p></p>
+<p></p>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     </main>
